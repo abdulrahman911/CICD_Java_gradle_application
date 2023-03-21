@@ -61,13 +61,18 @@ pipeline {
             steps{
                 script {
                     withCredentials([string(credentialsId: 'docker-pass', variable: 'nexus_password')]) {
-                        dir('kubernetes') {
-                          sh '''
-                             helmversion=$(helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
-                             tar -czvf myapp-$(helmversion).tgz myapp/
-                             curl -u admin:$nexus_password http://43.204.100.151:8081/repository/helm-chart-java-app/ --upload-file myapp-${helmversion}.tgz -v
-                             
-                            '''
+                        dir('kubernetes/') {
+                        //   sh '''
+                        //      helmversion=$(helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
+                        //      tar -czvf myapp-$(helmversion).tgz myapp/
+                        //      curl -u admin:$nexus_password http://43.204.100.151:8081/repository/helm-chart-java-app/ --upload-file myapp-${helmversion}.tgz -v
+                        //   '''
+
+                          sh '''                        
+                             tar -czvf myapp-0.2.0.tgz myapp/
+                             curl -u admin:$nexus_password http://43.204.100.151:8081/repository/helm-chart-java-app/ --upload-file myapp-0.2.0.tgz -v
+ 
+                         '''
                         }    
                     }
                 }
