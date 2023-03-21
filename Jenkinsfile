@@ -50,7 +50,8 @@ pipeline {
                         // some block
                         withEnv(['DATREE_TOKEN=ad8be631-4f91-4259-a9e4-fe1fc9dbfd24']) {
                         // some block
-                        sh 'helm datree test myapp/'
+                            //sh 'helm plugin install https://github.com/datreeio/helm-datree'
+                            sh 'helm datree test myapp/'
                         }
                     }
                 }
